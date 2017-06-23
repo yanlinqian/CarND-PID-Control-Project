@@ -6,20 +6,22 @@ Self-Driving Car Engineer Nanodegree Program
 * Describe the effect each of the P, I, D components had in your implementation.
 
 The parameter P, directly affects the car's running trajectory. Under the effect of this P, the car will steer in a degree which is
-proportional to the cross-track error (CTE) car's distance to the lane center. 
+proportional to the cross-track error (CTE) - car's distance to the lane center. 
+
 The parameter D, prevents the car from overshooting the center line. It leads to the car's approaching the center line smoothly.
+
 The parameter I, alleviates the negative effect of car inner bias, which may result into car never approaching the center line even with the help of P and D.
 
-video_1[p=0.521564, I=0, D=0](https://github.com/yanlinqian/CarND-PID-Control-Project/p.mp4)
+video_1[p=0.521564, I=0, D=0](https://github.com/yanlinqian/CarND-PID-Control-Project/blob/master/p.mp4)
 
-video_2[p=0.521564, I=0, D=15.9122](https://github.com/yanlinqian/CarND-PID-Control-Project/pd.mp4)
+video_2[p=0.521564, I=0, D=15.9122](https://github.com/yanlinqian/CarND-PID-Control-Project/blob/master/pd.mp4)
 
-video_3[p=0.521564, I=0.0050412, D=15.9122](https://github.com/yanlinqian/CarND-PID-Control-Project/pid.mp4)
+video_3[p=0.521564, I=0.0050412, D=15.9122](https://github.com/yanlinqian/CarND-PID-Control-Project/blob/master/pid.mp4)
 
 
 * Describe how the final hyperparameters were chosen.
 
-Three parameters - P,I,D were choosed from a serious of interval {0:0.1:1},{0:0.001:0.01},{0:1:10}. I choose proper value for each parameter one by one - starting choosing the next one with the preceding one fixed. Finally I got a acceptable set of PID values {0.1, 0.001, 3.0}. This set of parameters can direct the car to always stay inside of narrow track, while with some strong swing. 
+Three parameters - P,I,D were choosed from a serious of intervals {0:0.1:1},{0:0.001:0.01},{0:1:10}. I choose proper value for each parameter one by one - choosing the next one with the preceding one fixed. Finally I got a acceptable set of PID values {0.1, 0.001, 3.0}. This set of parameters can direct the car to always stay inside of narrow track, while with strong swing. 
 
 Next, parameter optimization Twiddle was implemented. This method also follows the spirit of my manual choosing parameter - it changes each parameter one by one by a step of 10 percent. To allow the car to gain some speed at first and the parameters to change quickly and continuously, Twiddle was set to be idle for 100 steps and running for the following 1000 steps. After 10 loops like this (covering 11000 steps), PID parameters seemed to converge to {0.521564,0.0050412,15.9122}. 
 
